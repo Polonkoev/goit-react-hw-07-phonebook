@@ -3,23 +3,27 @@ import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import ContactForm from './ContactForm/ContactForm';
 import css from './App.module.css';
-import { fetchContacts } from 'redux/contacts/contacts_operations';
+import { useSelector } from 'react-redux';
+import { SelectError } from 'redux/selectors';
 
 
 const App = () => {
+ const error = useSelector(SelectError)
   
   return (
-    <div className={css.container}>
-      <h1 className={css.title}>Phonebook</h1>
+    <>{error === null ? <div className={css.container}>
+    <h1 className={css.title}>Phonebook</h1>
+    
+    <ContactForm />
+    
+    <h2 className={css.contacts}>Contacts</h2>
+    
+    <Filter />
+    
+    <ContactList />
+    </div> : <h2>{error.message}</h2>}</>
 
-      <ContactForm />
-
-      <h2 className={css.contacts}>Contacts</h2>
-
-      <Filter />
-
-      <ContactList />
-    </div>
+    
   );
 };
 

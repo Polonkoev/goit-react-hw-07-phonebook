@@ -6,20 +6,19 @@ import { addContact } from 'redux/contacts/contacts_operations';
 import { useEffect } from 'react';
 import { fetchContacts } from 'redux/contacts/contacts_operations';
 
-import { SelectGetContacts } from 'redux/selectors';
+import { SelectContacts } from 'redux/selectors';
 
 const ContactForm = () => {
   let [name, setName] = useState('');
   let [phone, setphone] = useState('');
 
-  // useEffect(() => {
-  //   fetchContacts();
-  // }, []);
-
-
-  // const contacts = useSelector(SelectGetContacts);
-  const contacts = fetchContacts()
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
+  const contacts = useSelector(SelectContacts);
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
